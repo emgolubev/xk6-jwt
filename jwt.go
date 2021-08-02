@@ -7,13 +7,9 @@ import (
 	"encoding/pem"
 
 	"github.com/cristalhq/jwt/v3"
-	"github.com/loadimpact/k6/js/common"
-	"github.com/loadimpact/k6/js/modules"
+	"go.k6.io/k6/js/common"
+	"go.k6.io/k6/js/modules"
 )
-
-func init() {
-	modules.Register("k6/x/jwt", new(Jwt))
-}
 
 type Jwt struct{}
 
@@ -43,4 +39,8 @@ func (c *Signer) Sign(claims interface{}, kid string) string {
 	token, _ := builder.Build(claims)
 
 	return token.String()
+}
+
+func init() {
+	modules.Register("k6/x/jwt", new(Jwt))
 }
